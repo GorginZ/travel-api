@@ -1,7 +1,7 @@
 class CountriesController < ApplicationController
   before_action :set_country, only: [:show, :update, :destroy]
     def index
-      @countries = Country.all
+      @countries = Country.all.order(id: "desc")
       render json: @countries
     end
   
@@ -27,11 +27,11 @@ class CountriesController < ApplicationController
     private 
   
     def country_params 
-      params.require(:country).permit(:name, :description, :url)
+      params.require(:country).permit(:name, :description, :airline, :year)
     end 
   
     def set_country 
-      @bookmark = Bookmark.find(params[:id])
+      @country = Country.find(params[:id])
     end 
   end
   
