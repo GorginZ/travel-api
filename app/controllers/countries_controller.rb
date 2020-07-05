@@ -1,4 +1,5 @@
 class CountriesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_country, only: [:show, :update, :destroy]
     def index
       @countries = Country.all.order(id: "desc")
@@ -10,7 +11,7 @@ class CountriesController < ApplicationController
     end 
   
     def create 
-      Country.create(country_params)
+      current_user.countries.create(country_params)
       render json: "country", status: 200 
     end 
   
